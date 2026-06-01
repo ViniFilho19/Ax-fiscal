@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axé Fiscal — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="dash-style.css" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      
+      <div class="sidebar-logo-text">
+        <a href="/axéfiscal/login.html"><span class="axe">AXÉ</span>
+        <span class="fiscal">FISCAL</span></a>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="ti ti-layout-dashboard" aria-hidden="true"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/axéfiscal/novaTransação/Nova transacao.html" class="nav-item" data-page="nova-transacao"> 
+        <i class="ti ti-plus" aria-hidden="true"></i>
+        <span>Nova Transação</span>
+      </a>
+      <a href="#" class="nav-item" data-page="planilha">
+        <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+        <span>Minha Planilha</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a href="/axéfiscal/login.html" class="nav-item logout">
+        <i class="ti ti-logout" aria-hidden="true"></i>
+        <span>Sair</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="main-header">
+      <div>
+        <h1 class="header-title">Bem-vindo ao seu Dashboard</h1>
+        <p class="header-sub">Acompanhe seus gastos e mantenha suas finanças organizadas automaticamente</p>
+      </div>
+      <div class="header-month">
+        <i class="ti ti-calendar" aria-hidden="true"></i>
+        <span id="currentMonth"></span>
+      </div>
+    </header>
+
+    <!-- METRIC CARDS -->
+    <section class="cards-grid" aria-label="Resumo financeiro">
+      <div class="metric-card" style="--delay: 0.05s">
+        <div class="metric-top">
+          <span class="metric-label">Total de Gastos</span>
+          <i class="ti ti-wallet metric-icon" aria-hidden="true"></i>
+        </div>
+        <div class="metric-value" id="totalGastos">R$ 0,00</div>
+        <div class="metric-sub" id="totalTransacoes">0 transações processadas</div>
+      </div>
+
+      <div class="metric-card" style="--delay: 0.10s">
+        <div class="metric-top">
+          <span class="metric-label">Gastos via PIX</span>
+          <i class="ti ti-bolt metric-icon" aria-hidden="true"></i>
+        </div>
+        <div class="metric-value" id="totalPix">R$ 0,00</div>
+        <div class="metric-sub" id="porcPix">0% do total</div>
+      </div>
+
+      <div class="metric-card" style="--delay: 0.15s">
+        <div class="metric-top">
+          <span class="metric-label">Gastos no Cartão</span>
+          <i class="ti ti-credit-card metric-icon" aria-hidden="true"></i>
+        </div>
+        <div class="metric-value" id="totalCartao">R$ 0,00</div>
+        <div class="metric-sub" id="porcCartao">0% do total</div>
+      </div>
+
+      <div class="metric-card" style="--delay: 0.20s">
+        <div class="metric-top">
+          <span class="metric-label">Categorias Ativas</span>
+          <i class="ti ti-tag metric-icon" aria-hidden="true"></i>
+        </div>
+        <div class="metric-value" id="categoriasAtivas">0</div>
+        <div class="metric-sub">Categorizadas automaticamente</div>
+      </div>
+    </section>
+
+    <!-- CHARTS ROW -->
+    <section class="charts-row" aria-label="Gráficos">
+      <div class="chart-card" style="--delay: 0.25s">
+        <div class="chart-header">
+          <div>
+            <h2 class="chart-title">Gastos por Categoria</h2>
+            <p class="chart-sub">Distribuição automática dos seus gastos</p>
+          </div>
+        </div>
+        <canvas id="barChart" height="200"></canvas>
+      </div>
+
+      <div class="chart-card" style="--delay: 0.30s">
+        <div class="chart-header">
+          <div>
+            <h2 class="chart-title">Métodos de Pagamento</h2>
+            <p class="chart-sub">PIX vs Cartão</p>
+          </div>
+        </div>
+        <div class="pie-wrapper">
+          <canvas id="pieChart" height="200"></canvas>
+          <div class="pie-legend" id="pieLegend"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT TRANSACTIONS -->
+    <section class="transactions-card" style="--delay: 0.35s" aria-label="Transações recentes">
+      <div class="chart-header">
+        <div>
+          <h2 class="chart-title">Transações Recentes</h2>
+          <p class="chart-sub">Suas últimas movimentações financeiras</p>
+        </div>
+        <button class="btn-ver-todas">Ver todas <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+      </div>
+      <ul class="tx-list" id="txList"></ul>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="data.js"></script>
+  <script src="charts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
